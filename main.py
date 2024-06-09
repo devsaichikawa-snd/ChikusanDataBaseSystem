@@ -1,19 +1,28 @@
-from pork_carcass_data.data_cleansing import cleansing_pork_carcass
-from pork_carcass_data.data_download import download_zenno_data
+import sys
+
+from controller.pork_carcass_control import exec_pork_carcass_data
 
 
 def execute():
-    """実行"""
-    pass
+    """メイン実行処理
 
+    Note:
+        ターミナルで実行するときのコマンド
+        Excelファイル取得→データクレンジング→DB取込: python main.py pork-carcass
+        データクレンジングのみの単体実行: python main.py pork-carcass cleansing
+            →手動でDLする場合
+        データ取込のみの単体実行: python main.py pork-carcass dbinsert
+    """
+    args = sys.argv
 
-def execute_pork_carcass():
-    """実行"""
-    file_date = download_zenno_data()
-    cleansing_pork_carcass(file_date)
+    if args[1] == "pork-carcass":
+        # 豚枝肉相場Excelのデータ取得→クレンジング→DB取込
+        exec_pork_carcass_data(args)
+    else:
+        pass
 
 
 if __name__ == "__main__":
     print("----- 処理を開始しました。-----")
-    execute_pork_carcass()
+    execute()
     print("----- 全ての処理が終了しました。-----")
