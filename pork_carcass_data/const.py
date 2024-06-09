@@ -13,6 +13,7 @@ EXCEL_TEMPLATE_DIR = PROJECT_DIR + "\\excel_template\\"
 OUTPUT_PORK_CARCASS_DIR = PROJECT_DIR + "\\output\\豚枝肉相場サマリ\\"
 EXCEL_TEMPLATE_FILE_NAME = "豚枝肉相場_Summary.xlsx"
 
+
 # Excel 行と列の固定番号
 DEFAULT_ROW_DLFILE = 6
 DEFAULT_ROW_SUMMARYFILE = 3

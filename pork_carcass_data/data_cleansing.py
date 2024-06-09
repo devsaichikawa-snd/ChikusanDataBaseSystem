@@ -26,10 +26,12 @@ from pork_carcass_data.const import (
 from pork_carcass_data.model import ExcelPorkCarcassSummaryModel
 
 
-def cleansing_pork_carcass(file_date):
+def cleansing_pork_carcass(file_date, file=None):
     """Cleansing"""
     # ダウンロードファイルを開く
-    download_file_path = DOWNLOAD_DIR + f"豚肉相場一覧表_{file_date}.xlsx"
+    download_file_path = file
+    if download_file_path is None:
+        download_file_path = DOWNLOAD_DIR + f"豚肉相場一覧表_{file_date}.xlsx"
     wb = read_workbook(download_file_path)
     ws = read_sheet(wb)
 
@@ -59,6 +61,8 @@ def cleansing_pork_carcass(file_date):
     save_and_close_book(wb, save_file_path, True)
     # コピーしたsummaryが邪魔なので削除する
     delete_file(copy_sammary_file_path)
+
+    return save_file_path
 
 
 def __read_dl_file_data(file_date, ws, model_list):

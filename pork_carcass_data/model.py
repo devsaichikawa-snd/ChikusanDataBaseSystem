@@ -1,6 +1,54 @@
 """pork_carcass_dataのModel"""
 
 from dataclasses import dataclass
+from datetime import datetime
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.schema import Column
+from sqlalchemy.types import Integer, DateTime, Date
+
+
+# モデルのベースクラスを定義。SQLAlchemyでテーブルを定義する際は、"BASE"を継承すること。
+BASE = declarative_base()
+
+
+class PorkCarcassPrice(BASE):
+    """豚枝肉相場テーブル"""
+
+    # テーブル名
+    __tablename__ = "pork_carcass_price"
+    # 主キー
+    id = Column(Integer, primary_key=True, autoincrement=True)
+
+    market_date = Column(Date, unique=True, nullable=False)
+    nationwide_slaughter = Column(Integer, nullable=True)
+    zennoh_high_price = Column(Integer, nullable=True)
+    zennoh_middle_price = Column(Integer, nullable=True)
+    # TOKYO
+    tokyo_high_price = Column(Integer, nullable=True)
+    tokyo_middle_price = Column(Integer, nullable=True)
+    tokyo_ordinary_price = Column(Integer, nullable=True)
+    tokyo_outside_price = Column(Integer, nullable=True)
+    tokyo_head_count = Column(Integer, nullable=True)
+    # SAITAMA
+    saitama_high_price = Column(Integer, nullable=True)
+    saitama_middle_price = Column(Integer, nullable=True)
+    saitama_ordinary_price = Column(Integer, nullable=True)
+    saitama_outside_price = Column(Integer, nullable=True)
+    saitama_head_count = Column(Integer, nullable=True)
+    # YOKOHAMA
+    yokohama_high_price = Column(Integer, nullable=True)
+    yokohama_middle_price = Column(Integer, nullable=True)
+    yokohama_ordinary_price = Column(Integer, nullable=True)
+    yokohama_outside_price = Column(Integer, nullable=True)
+    yokohama_head_count = Column(Integer, nullable=True)
+    # OSAKA
+    osaka_high_price = Column(Integer, nullable=True)
+    osaka_middle_price = Column(Integer, nullable=True)
+    osaka_ordinary_price = Column(Integer, nullable=True)
+    osaka_outside_price = Column(Integer, nullable=True)
+    osaka_head_count = Column(Integer, nullable=True)
+    created_at = Column(DateTime, default=datetime.now, nullable=False)
+    updated_at = Column(DateTime, default=datetime.now, nullable=False)
 
 
 @dataclass

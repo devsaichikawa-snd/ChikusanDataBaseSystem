@@ -8,10 +8,10 @@ def execute():
 
     Note:
         ターミナルで実行するときのコマンド
-        Excelファイル取得→データクレンジング→DB取込: python main.py pork-carcass
-        データクレンジングのみの単体実行: python main.py pork-carcass cleansing
+        Excel取得→データクレンジング→DB取込: python main.py pork-carcass
+        データクレンジングの単体実行: python main.py pork-carcass cleansing
             →手動でDLする場合
-        データ取込のみの単体実行: python main.py pork-carcass dbinsert
+        データ取込の単体実行: python main.py pork-carcass dbinsert
     """
     args = sys.argv
 

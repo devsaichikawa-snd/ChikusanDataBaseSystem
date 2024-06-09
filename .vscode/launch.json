@@ -8,9 +8,11 @@
             "name": "debug 畜産DB",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
+            "program": "${workspaceFolder}\\main.py",
             "console": "integratedTerminal",
-            "args": []
+            "args": [
+                "pork-carcass",
+            ]
         }
     ]
 }

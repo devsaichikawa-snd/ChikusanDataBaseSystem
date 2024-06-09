@@ -27,7 +27,7 @@ def download_zenno_data():
     # target_elemを整形する。→["4月", "5月", "6月", ..., "1月", "2月", "3月"]
     months = target_elem.text.split("\n")
     # 前月を取得する
-    last_month = get_last_month(today, "mm")
+    last_month = get_last_month(today, "m月")
 
     # monthsからターゲット月を取得する
     target_month = ""

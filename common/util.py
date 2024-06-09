@@ -47,8 +47,10 @@ def get_last_month(today, pattern: str):
         previous_date = f"{year}{month:02}"
     elif pattern == "mm":
         previous_date = f"{month:02}"
+    elif pattern == "m月":
+        previous_date = f"{month}月"
     else:
-        ValueError("引数を確認してください。")
+        raise ValueError("引数を確認してください。")
 
     return previous_date
 
