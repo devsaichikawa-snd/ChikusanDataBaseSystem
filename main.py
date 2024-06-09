@@ -3,7 +3,7 @@ import sys
 from controller.pork_carcass_control import exec_pork_carcass_data
 
 
-def execute():
+def execute() -> None:
     """メイン実行処理
 
     Note:

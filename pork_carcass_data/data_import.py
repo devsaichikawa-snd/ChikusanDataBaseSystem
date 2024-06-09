@@ -8,7 +8,7 @@ from db.db_settings import get_db_engine, get_db_session, dispose_db_engine
 from pork_carcass_data.model import PorkCarcassPrice
 
 
-def import_data(file_path):
+def import_data(file_path: str):
     """pork_carcass_priceテーブルにsummary結果を取り込む処理"""
 
     # Summaryファイルを開く

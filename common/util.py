@@ -5,6 +5,7 @@ import glob
 import os
 from pathlib import Path
 import time
+from typing import Any
 import shutil
 
 
@@ -13,7 +14,7 @@ def get_project_dir() -> Path:
     return Path.cwd()
 
 
-def is_none_or_empty(check_value) -> bool:
+def is_none_or_empty(check_value: Any) -> bool:
     """Noneと空文字の判定をする
     Noneまたは空文字: True、値判定あり: False
     """
@@ -22,12 +23,12 @@ def is_none_or_empty(check_value) -> bool:
     return False
 
 
-def get_today():
+def get_today() -> date:
     """本日日付を取得する"""
     return date.today()
 
 
-def get_last_month(today, pattern: str):
+def get_last_month(today: date, pattern: str) -> str:
     """前月日付を取得する
     Args:
         today(date): date.today()
@@ -55,24 +56,24 @@ def get_last_month(today, pattern: str):
     return previous_date
 
 
-def from_str_to_date(value: str):
+def from_str_to_date(value: str) -> date:
     """日付の型変換(str → date)"""
     datetyep_value = date.fromisoformat(value)
     return datetyep_value
 
 
-def time_keeper(seconds: int):
+def time_keeper(seconds: int) -> None:
     """待機時間を発生させる"""
     time.sleep(seconds)
 
 
-def remove_day_str(value: str):
+def remove_day_str(value: str) -> str:
     """「日」の文字を削除する"""
     result = value.replace("日", "")
     return result
 
 
-def file_copy(original_file, copy_to):
+def file_copy(original_file: str, copy_to: str) -> None:
     """File Copy"""
     shutil.copy2(original_file, copy_to)
 
