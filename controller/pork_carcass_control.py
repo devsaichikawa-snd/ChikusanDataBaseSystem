@@ -7,17 +7,17 @@ from pork_carcass_data.data_download import download_zenno_data
 from pork_carcass_data.data_import import import_data
 
 
-def exec_pork_carcass_data(args):
+def exec_pork_carcass_data(args: list) -> None:
     """メインコントローラー"""
     if len(args) > 2:
         if args[2] == "cleansing":
             # データクレンジングのみ単独実行
             __execSingle_cleansing_pork_carcass()
-            return "cleansing done"
+            return
         if args[2] == "dbinsert":
             # データ取込のみ単独実行
             __execSingle_import_data()
-            return "dbinsert done"
+            return
     else:
         # 一気通貫処理(※前月分を処理する)
         file_date = __exec_download_zenno_data()
@@ -25,13 +25,13 @@ def exec_pork_carcass_data(args):
         __exec_import_data(file_path)
 
 
-def __exec_download_zenno_data():
+def __exec_download_zenno_data() -> str:
     """データダウンロード処理"""
     file_date = download_zenno_data()
     return file_date
 
 
-def __exec_cleansing_pork_carcass(file_date):
+def __exec_cleansing_pork_carcass(file_date: str) -> str:
     """データクレンジング処理"""
     file_path = cleansing_pork_carcass(file_date)
     return file_path
@@ -63,7 +63,7 @@ def __execSingle_import_data():
         print(f"{file}のデータ取込が終了しました。")
 
 
-def __get_date_from_file_path(file_path):
+def __get_date_from_file_path(file_path: str) -> str:
     """データクレンジング処理単体実行用の日付取得処理"""
     pattern = r"(\d{6})"
     match = re.search(pattern, file_path)
@@ -74,6 +74,6 @@ def __get_date_from_file_path(file_path):
         print(
             "ファイル名からyyyymmが取得できませんでした。直接日付を取得します。"
         )
-        yyyymm = get_last_month(get_today, "yyyymm")
+        yyyymm = get_last_month(get_today(), "yyyymm")
 
     return yyyymm

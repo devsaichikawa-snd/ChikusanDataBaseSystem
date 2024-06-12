@@ -67,10 +67,12 @@ def time_keeper(seconds: int) -> None:
     time.sleep(seconds)
 
 
-def remove_day_str(value: str) -> str:
+def remove_day_str(value) -> str:
     """「日」の文字を削除する"""
-    result = value.replace("日", "")
-    return result
+    if value is not None:
+        result = value.replace("日", "")
+        return result
+    return value
 
 
 def file_copy(original_file: str, copy_to: str) -> None:

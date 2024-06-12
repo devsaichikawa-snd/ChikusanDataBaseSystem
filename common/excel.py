@@ -1,20 +1,17 @@
-from typing import Any, Union
+from typing import Any
 
-from openpyxl import load_workbook, Workbook
-from openpyxl.worksheet.worksheet import Worksheet
+from openpyxl import load_workbook
 
 from common.util import is_none_or_empty
 
 
-def read_workbook(file_path: str) -> Workbook:
+def read_workbook(file_path: str):
     """指定したExcel Bookを読み込む"""
     wb = load_workbook(file_path, data_only=True)
     return wb
 
 
-def save_and_close_book(
-    wb: Workbook, file_path: str | None = None, save_flag: bool = False
-) -> None:
+def save_and_close_book(wb, file_path=None, save_flag: bool = False):
     """指定したExcel Bookを保存・閉じる"""
     if save_flag:
         if file_path:
@@ -24,7 +21,7 @@ def save_and_close_book(
     wb.close()
 
 
-def read_sheet(wb: Workbook, sheet_name: str | None = None) -> Worksheet:
+def read_sheet(wb, sheet_name=None):
     """指定したExcel Sheetを開く"""
     if sheet_name is None:
         ws = wb.active
@@ -38,9 +35,7 @@ def read_sheet(wb: Workbook, sheet_name: str | None = None) -> Worksheet:
     return ws
 
 
-def read_cell(
-    ws: Worksheet, row: int, column: int, for_database: bool = False
-) -> Union[str, None]:
+def read_cell(ws, row: int, column: int, for_database: bool = False):
     """cellの値を取得する"""
     if row < 1 or column < 1:
         raise ValueError("行と列は1以上である必要があります。")
@@ -59,7 +54,7 @@ def read_cell(
     return value
 
 
-def write_cell(ws: Worksheet, row: int, column: int, value: Any) -> None:
+def write_cell(ws, row: int, column: int, value: Any):
     """cellの値を書き込む"""
     if row < 1 or column < 1:
         raise ValueError("行と列は1以上である必要があります。")
@@ -67,6 +62,6 @@ def write_cell(ws: Worksheet, row: int, column: int, value: Any) -> None:
     ws.cell(row=row, column=column).value = value
 
 
-def excel_to_pdf() -> None:
+def excel_to_pdf():
     """ExcelファイルをPDFファイルに変換する"""
     pass

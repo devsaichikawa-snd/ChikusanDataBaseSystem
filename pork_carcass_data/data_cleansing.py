@@ -1,4 +1,6 @@
 import re
+from typing import Any
+from openpyxl.worksheet.worksheet import Worksheet
 
 from common.excel import (
     read_workbook,
@@ -26,7 +28,7 @@ from pork_carcass_data.const import (
 from pork_carcass_data.model import ExcelPorkCarcassSummaryModel
 
 
-def cleansing_pork_carcass(file_date, file=None):
+def cleansing_pork_carcass(file_date: str, file: str | None = None):
     """Cleansing"""
     # ダウンロードファイルを開く
     download_file_path = file
@@ -36,8 +38,7 @@ def cleansing_pork_carcass(file_date, file=None):
     ws = read_sheet(wb)
 
     # DLファイルデータ→ExcelSummaryModelへの変換(読み込み)
-    model_list = []
-    model_list = __read_dl_file_data(file_date, ws, model_list)
+    model_list = __read_dl_file_data(file_date, ws)
     # DLファイルを閉じる
     save_and_close_book(wb)
 
@@ -65,13 +66,16 @@ def cleansing_pork_carcass(file_date, file=None):
     return save_file_path
 
 
-def __read_dl_file_data(file_date, ws, model_list):
+def __read_dl_file_data(
+    file_date: str, ws
+) -> list[type[ExcelPorkCarcassSummaryModel]]:
     """"""
+    model_list = []
     row = DEFAULT_ROW_DLFILE
     for _ in range(1, 30):
         cell_a_1_val = read_cell(ws, row, 1)
 
-        if "全農建値" in cell_a_1_val:
+        if "全農建値" in str(cell_a_1_val):
             break
         if is_none_or_empty(cell_a_1_val):
             continue
@@ -122,7 +126,9 @@ def __read_dl_file_data(file_date, ws, model_list):
     return model_list
 
 
-def __write_summary_file(ws, model_list):
+def __write_summary_file(
+    ws, model_list: list[type[ExcelPorkCarcassSummaryModel]]
+):
     """"""
     row = DEFAULT_ROW_SUMMARYFILE
     for model in model_list:
@@ -167,30 +173,30 @@ def __remove_date(value):
         変更前: 68800 (2023/02/28)
         変更後: 68800
     """
+    if value is not None:
+        # 正規表現
+        regex = r"\(\d{4}/\d{1,2}/\d{1,2}\)"
+        # 正規表現で示して値だけ削除し、さらに空白を削除する
+        removed_value = str.strip(re.sub(regex, "", value))
+        return removed_value
+    else:
+        raise ValueError
 
-    # 正規表現
-    regex = r"\(\d{4}/\d{1,2}/\d{1,2}\)"
-    # 正規表現で示して値だけ削除し、さらに空白を削除する
-    removed_value = str.strip(re.sub(regex, "", value))
 
-    return removed_value
-
-
-def __type_conversion(value):
+def __type_conversion(value: Any) -> str | int:
     """intに変換する"""
     if not is_none_or_empty(value):
         value = int(value)
     return value
 
 
-def __set_converted_value(ws, row, column, value):
+def __set_converted_value(ws: Worksheet, row: int, column: int, value: Any):
     """対象セルに値をセットする"""
     # 値を型変換するしてから、セルに書き込む
     converted_value = __type_conversion(value)
     write_cell(ws, row, column, converted_value)
 
 
-def __set_value_of_date(ws, row, column, value):
+def __set_value_of_date(ws: Worksheet, row: int, column: int, value: Any):
     """対象セルに値をセットする(date型の値限定)"""
-
     write_cell(ws, row, column, value)
