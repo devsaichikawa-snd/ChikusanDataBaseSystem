@@ -7,7 +7,7 @@ from pork_carcass_data.data_download import download_zenno_data
 from pork_carcass_data.data_import import import_data
 
 
-def exec_pork_carcass_data(args: list) -> None:
+def exec_pork_carcass_data(args: list):
     """メインコントローラー"""
     if len(args) > 2:
         if args[2] == "cleansing":

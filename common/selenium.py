@@ -1,5 +1,4 @@
 from typing import Any
-
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
@@ -8,10 +7,14 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def get_web_driver(url: str, option: Any = None) -> webdriver.Chrome:
     """WebDriverを生成する"""
+    if url is None or url == "":
+        raise ValueError("urlが存在しません。")
     driver = webdriver.Chrome(
         service=ChromeService(ChromeDriverManager().install())
     )
     driver.get(url)
+    print(f"{url}に接続しました。")
+
     return driver
 
 

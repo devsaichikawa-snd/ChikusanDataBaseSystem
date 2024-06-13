@@ -1,5 +1,4 @@
 from typing import Any
-
 from openpyxl import load_workbook
 
 from common.util import is_none_or_empty
@@ -7,6 +6,8 @@ from common.util import is_none_or_empty
 
 def read_workbook(file_path: str):
     """指定したExcel Bookを読み込む"""
+    if file_path is None:
+        raise ValueError("ファイルパスが存在しません。")
     wb = load_workbook(file_path, data_only=True)
     return wb
 
@@ -51,7 +52,7 @@ def read_cell(ws, row: int, column: int, for_database: bool = False):
             # データクレンジングなので、空文字で返す
             return ""
 
-    return value
+    return str(value)
 
 
 def write_cell(ws, row: int, column: int, value: Any):

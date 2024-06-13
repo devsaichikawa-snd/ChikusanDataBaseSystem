@@ -11,7 +11,7 @@ from common.util import time_keeper, get_last_month, get_today
 from pork_carcass_data.const import ZENNO_URL
 
 
-def download_zenno_data():
+def download_zenno_data() -> str:
     """JA全農ミートフーズの豚枝肉相場ExcelをDLする"""
     driver = get_web_driver(ZENNO_URL)
     time_keeper(2)

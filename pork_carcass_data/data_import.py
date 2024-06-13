@@ -20,7 +20,8 @@ def import_data(file_path: str):
     session = get_db_session()
 
     # Summaryからデータを取得する
-    for row in range(3, ws.max_row + 1):
+    row = 3
+    while True:
         market_date = read_cell(ws, row, 1, for_database=True)
 
         if is_none_or_empty(market_date):
@@ -83,6 +84,7 @@ def import_data(file_path: str):
         )
 
         session.add(model)
+        row += 1
     session.commit()
     print("summaryのDBインサートが完了しました。")
 

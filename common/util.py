@@ -62,7 +62,7 @@ def from_str_to_date(value: str) -> date:
     return datetyep_value
 
 
-def time_keeper(seconds: int) -> None:
+def time_keeper(seconds: int):
     """待機時間を発生させる"""
     time.sleep(seconds)
 
@@ -75,7 +75,7 @@ def remove_day_str(value) -> str:
     return value
 
 
-def file_copy(original_file: str, copy_to: str) -> None:
+def file_copy(original_file: str, copy_to: str):
     """File Copy"""
     shutil.copy2(original_file, copy_to)
 
@@ -101,8 +101,13 @@ def delete_file(files_path: str | list):
             print(f"Error deleting {files_path}: {e}")
 
 
-def get_files(dir_path: str, pattern="*") -> list[str]:
+def get_files(dir_path: str, pattern: str = "*") -> list[str]:
     """指定したディレクトリ内のパターンに一致するファイルを全て取得する"""
     path = os.path.join(dir_path, pattern)
     files = glob.glob(path)
     return files
+
+
+def create_timer():
+    """処理時間計測の為に、時間を生成する"""
+    return time.time()
