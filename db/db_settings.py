@@ -18,10 +18,12 @@ DATABASE_NAME = os.getenv("DATABASE_NAME")
 CHARSET_TYPE = "utf8"
 DB_URL = f"{DIALECT}+{DRIVER}://{DB_USER_NAME}:{DB_PASSWORD}@{HOST}:{PORT}/{DATABASE_NAME}?charset={CHARSET_TYPE}"
 
+db_engine = create_engine(DB_URL, echo=True)
+
 
 def get_db_engine() -> Engine:
     """データベースエンジンを作成"""
-    return create_engine(DB_URL, echo=True)
+    return db_engine
 
 
 def dispose_db_engine(engine: Engine) -> None:
